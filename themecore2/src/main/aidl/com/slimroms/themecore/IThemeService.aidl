@@ -15,4 +15,5 @@ interface IThemeService {
     boolean uninstallOverlays();
     boolean isRebootRequired();
     void reboot();
+    boolean isAvailable();
 }
