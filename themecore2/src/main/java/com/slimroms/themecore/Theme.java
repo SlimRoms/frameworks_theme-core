@@ -1,20 +1,23 @@
 package com.slimroms.themecore;
 
+import android.content.ComponentName;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.v7.widget.LinearLayoutCompat;
 
 public class Theme implements Parcelable {
 
     public String name;
     public String packageName;
-    public int packageType;
+    public String themeType;
     public int themeVersion;
+    public ComponentName backendName;
 
-    public Theme(String name, String packageName, int packageType, int themeVersion) {
+    public Theme(ComponentName backendName, String name, String packageName,
+                 String themeType, int themeVersion) {
+        this.backendName = backendName;
         this.name = name;
         this.packageName = packageName;
-        this.packageType = packageType;
+        this.themeType = themeType;
         this.themeVersion = themeVersion;
     }
 
@@ -28,18 +31,20 @@ public class Theme implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(name);
         parcel.writeString(packageName);
-        parcel.writeInt(packageType);
+        parcel.writeString(themeType);
         parcel.writeInt(themeVersion);
+        parcel.writeParcelable(backendName, flags);
     }
 
     public void readFromParcel(Parcel parcel) {
         name = parcel.readString();
         packageName = parcel.readString();
-        packageType = parcel.readInt();
+        themeType = parcel.readString();
         themeVersion = parcel.readInt();
+        backendName = parcel.readParcelable(ComponentName.class.getClassLoader());
     }
 
     public static final Creator<Theme> CREATOR

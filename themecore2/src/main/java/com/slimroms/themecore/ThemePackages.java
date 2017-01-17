@@ -10,6 +10,10 @@ public class ThemePackages implements Parcelable {
 
     private List<Theme> packages = new ArrayList<>();
 
+    public ThemePackages() {
+
+    }
+
     private ThemePackages(Parcel in) {
         in.readTypedList(packages, Theme.CREATOR);
     }
@@ -22,6 +26,10 @@ public class ThemePackages implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeList(packages);
+    }
+
+    public List<Theme> getPackages() {
+        return packages;
     }
 
     public static final Creator<ThemePackages> CREATOR
