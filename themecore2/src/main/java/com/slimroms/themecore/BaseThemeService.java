@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 public abstract class BaseThemeService extends Service {
-    private final ComponentName mBackendName = new ComponentName(this, this.getClass());
+    private ComponentName mBackendName;
 
     public abstract BaseThemeHelper getThemeHelper();
 
@@ -15,6 +15,7 @@ public abstract class BaseThemeService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        mBackendName =  new ComponentName(this, this.getClass());
     }
 
     @Override
