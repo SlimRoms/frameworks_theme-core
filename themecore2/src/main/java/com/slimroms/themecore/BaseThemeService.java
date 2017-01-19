@@ -25,7 +25,7 @@ public abstract class BaseThemeService extends Service {
 
     private final IThemeService.Stub mBinder = getThemeHelper();
 
-    protected Theme createTheme(String name, String packageName, int themeVersion) {
-        return new Theme(mBackendName, name, packageName, getThemeType(), themeVersion);
+    protected Theme createTheme(String name, String packageName, String themeVersion, String themeAuthor) {
+        return new Theme(mBackendName, name, packageName, getThemeType(), themeVersion, themeAuthor);
     }
 }

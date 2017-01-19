@@ -1,6 +1,7 @@
 package com.slimroms.themecore;
 
 import android.content.ComponentName;
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,16 +10,18 @@ public class Theme implements Parcelable {
     public String name;
     public String packageName;
     public String themeType;
-    public int themeVersion;
+    public String themeVersion;
     public ComponentName backendName;
+    public String themeAuthor;
 
     public Theme(ComponentName backendName, String name, String packageName,
-                 String themeType, int themeVersion) {
+                 String themeType, String themeVersion, String themeAuthor) {
         this.backendName = backendName;
         this.name = name;
         this.packageName = packageName;
         this.themeType = themeType;
         this.themeVersion = themeVersion;
+        this.themeAuthor = themeAuthor;
     }
 
     private Theme(Parcel in) {
@@ -35,16 +38,18 @@ public class Theme implements Parcelable {
         parcel.writeString(name);
         parcel.writeString(packageName);
         parcel.writeString(themeType);
-        parcel.writeInt(themeVersion);
+        parcel.writeString(themeVersion);
         parcel.writeParcelable(backendName, flags);
+        parcel.writeString(themeAuthor);
     }
 
     public void readFromParcel(Parcel parcel) {
         name = parcel.readString();
         packageName = parcel.readString();
         themeType = parcel.readString();
-        themeVersion = parcel.readInt();
+        themeVersion = parcel.readString();
         backendName = parcel.readParcelable(ComponentName.class.getClassLoader());
+        themeAuthor = parcel.readString();
     }
 
     public static final Creator<Theme> CREATOR
