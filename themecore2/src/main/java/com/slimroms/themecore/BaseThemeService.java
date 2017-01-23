@@ -3,6 +3,7 @@ package com.slimroms.themecore;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.IBinder;
 
 public abstract class BaseThemeService extends Service {
@@ -25,7 +26,9 @@ public abstract class BaseThemeService extends Service {
 
     private final IThemeService.Stub mBinder = getThemeHelper();
 
-    protected Theme createTheme(String name, String packageName, String themeVersion, String themeAuthor) {
-        return new Theme(mBackendName, name, packageName, getThemeType(), themeVersion, themeAuthor);
+    protected Theme createTheme(String name, String packageName, String themeVersion, String themeAuthor,
+                                Bitmap themeLogo) {
+        return new Theme(mBackendName, name, packageName, getThemeType(), themeVersion, themeAuthor,
+                themeLogo);
     }
 }

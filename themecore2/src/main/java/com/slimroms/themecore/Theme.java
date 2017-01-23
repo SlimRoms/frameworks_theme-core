@@ -13,15 +13,18 @@ public class Theme implements Parcelable {
     public String themeVersion;
     public ComponentName backendName;
     public String themeAuthor;
+    public Bitmap themeLogo;
 
     public Theme(ComponentName backendName, String name, String packageName,
-                 String themeType, String themeVersion, String themeAuthor) {
+                 String themeType, String themeVersion, String themeAuthor,
+                 Bitmap themeLogo) {
         this.backendName = backendName;
         this.name = name;
         this.packageName = packageName;
         this.themeType = themeType;
         this.themeVersion = themeVersion;
         this.themeAuthor = themeAuthor;
+        this.themeLogo = themeLogo;
     }
 
     private Theme(Parcel in) {
@@ -41,6 +44,7 @@ public class Theme implements Parcelable {
         parcel.writeString(themeVersion);
         parcel.writeParcelable(backendName, flags);
         parcel.writeString(themeAuthor);
+        parcel.writeParcelable(themeLogo, flags);
     }
 
     public void readFromParcel(Parcel parcel) {
@@ -50,6 +54,7 @@ public class Theme implements Parcelable {
         themeVersion = parcel.readString();
         backendName = parcel.readParcelable(ComponentName.class.getClassLoader());
         themeAuthor = parcel.readString();
+        themeLogo = parcel.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public static final Creator<Theme> CREATOR
