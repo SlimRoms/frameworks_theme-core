@@ -8,7 +8,7 @@ import com.slimroms.themecore.OverlayThemeInfo;
 
 interface IThemeService {
 
-    List<Theme> getThemePackages();
+    int getThemePackages(out List<Theme> themes);
     void getThemeContent(in Theme theme, out OverlayThemeInfo info);
     int checkPermissions();
     boolean installOverlaysFromTheme(in OverlayThemeInfo info);
