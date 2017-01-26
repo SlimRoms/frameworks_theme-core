@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.IBinder;
 
+import java.util.HashMap;
+
 public abstract class BaseThemeService extends Service {
     private ComponentName mBackendName;
+    private HashMap<String, Theme> mThemes;
 
     public abstract BaseThemeHelper getThemeHelper();
 
@@ -17,6 +20,7 @@ public abstract class BaseThemeService extends Service {
     public void onCreate() {
         super.onCreate();
         mBackendName =  new ComponentName(this, this.getClass());
+        mThemes = new HashMap<>();
     }
 
     @Override
@@ -28,7 +32,13 @@ public abstract class BaseThemeService extends Service {
 
     protected Theme createTheme(String name, String packageName, String themeVersion, String themeAuthor,
                                 Bitmap themeLogo) {
-        return new Theme(mBackendName, name, packageName, getThemeType(), themeVersion, themeAuthor,
+        final Theme theme = new Theme(mBackendName, name, packageName, getThemeType(), themeVersion, themeAuthor,
                 themeLogo);
+        mThemes.put(packageName, theme);
+        return theme;
+    }
+
+    protected Theme getTheme(String packageName) {
+        return mThemes.get(packageName);
     }
 }

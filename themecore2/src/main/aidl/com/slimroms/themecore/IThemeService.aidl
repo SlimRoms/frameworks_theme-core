@@ -29,4 +29,5 @@ interface IThemeService {
     boolean isRebootRequired();
     void reboot();
     boolean isAvailable();
+    Theme getThemeByPackage(in String packageName);
 }
