@@ -14,6 +14,7 @@ public class Overlay implements Parcelable {
     public boolean isOverlayInstalled;
     public boolean isTargetPackageInstalled;
     public boolean checked;
+    public boolean isOverlayEnabled;
 
     public Overlay(String overlayName, String targetPackage, boolean isTargetPackageInstalled) {
         this.overlayName = overlayName;
@@ -21,6 +22,7 @@ public class Overlay implements Parcelable {
         this.isOverlayInstalled = false;
         this.isTargetPackageInstalled = isTargetPackageInstalled;
         this.checked = false;
+        this.isOverlayEnabled = true;
     }
 
     private Overlay(Parcel in) {
@@ -40,6 +42,7 @@ public class Overlay implements Parcelable {
         parcel.writeInt(isTargetPackageInstalled ? 1 : 0);
         parcel.writeInt(checked ? 1 : 0);
         parcel.writeTypedList(flavors);
+        parcel.writeInt(isOverlayEnabled ? 1 : 0);
     }
 
     public void readFromParcel(Parcel in) {
@@ -49,6 +52,7 @@ public class Overlay implements Parcelable {
         isTargetPackageInstalled = in.readInt() == 1;
         checked = in.readInt() == 1;
         in.readTypedList(flavors, OverlayFlavor.CREATOR);
+        isOverlayEnabled = in.readInt() == 1;
     }
 
     public void clearSelectedFlavors() {
