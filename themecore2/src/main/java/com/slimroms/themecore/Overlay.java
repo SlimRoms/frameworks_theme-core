@@ -1,5 +1,6 @@
 package com.slimroms.themecore;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,6 +16,7 @@ public class Overlay implements Parcelable {
     public boolean isTargetPackageInstalled;
     public boolean checked;
     public boolean isOverlayEnabled;
+    public Bitmap overlayImage;
 
     public Overlay(String overlayName, String targetPackage, boolean isTargetPackageInstalled) {
         this.overlayName = overlayName;
@@ -43,6 +45,7 @@ public class Overlay implements Parcelable {
         parcel.writeInt(checked ? 1 : 0);
         parcel.writeTypedList(flavors);
         parcel.writeInt(isOverlayEnabled ? 1 : 0);
+        parcel.writeParcelable(overlayImage, flags);
     }
 
     public void readFromParcel(Parcel in) {
@@ -53,6 +56,7 @@ public class Overlay implements Parcelable {
         checked = in.readInt() == 1;
         in.readTypedList(flavors, OverlayFlavor.CREATOR);
         isOverlayEnabled = in.readInt() == 1;
+        overlayImage = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public void clearSelectedFlavors() {
