@@ -2,16 +2,19 @@ package com.slimroms.themecore;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.ArrayMap;
+
+import java.util.ArrayList;
 
 public class OverlayFlavor implements Parcelable {
     public String name;
-    public String overlayLocalPath;
-    public boolean selected;
+    public String key;
+    public ArrayMap<String, String> flavors = new ArrayMap<>();
+    public String selected;
 
-    public OverlayFlavor(String name, String path) {
+    public OverlayFlavor(String name, String key) {
         this.name = name;
-        this.overlayLocalPath = path;
-        this.selected = false;
+        this.key = key;
     }
 
     private OverlayFlavor(Parcel in) {
@@ -26,14 +29,17 @@ public class OverlayFlavor implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(name);
-        parcel.writeString(overlayLocalPath);
-        parcel.writeInt(selected ? 1 : 0);
+        parcel.writeMap(flavors);
+        parcel.writeString(selected);
     }
 
     public void readFromParcel(Parcel in) {
         name = in.readString();
-        overlayLocalPath = in.readString();
-        selected = in.readInt() == 1;
+        in.readMap(flavors, String.class.getClassLoader());
+        if (flavors == null) {
+            flavors = new ArrayMap<>();
+        }
+        selected = in.readString();
     }
 
     public static final Creator<OverlayFlavor> CREATOR = new Creator<OverlayFlavor>() {

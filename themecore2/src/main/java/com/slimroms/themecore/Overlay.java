@@ -61,7 +61,7 @@ public class Overlay implements Parcelable {
 
     public void clearSelectedFlavors() {
         for (OverlayFlavor flavor : flavors)
-            flavor.selected = false;
+            flavor.selected = "";
     }
 
     public static final Creator<Overlay> CREATOR = new Creator<Overlay>() {
