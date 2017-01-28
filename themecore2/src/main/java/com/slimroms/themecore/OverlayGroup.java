@@ -14,6 +14,10 @@ public class OverlayGroup implements Parcelable {
 
     public String title;
 
+    public static final String OVERLAYS = "OVERLAYS";
+    public static final String BOOTANIMATIONS = "BOOTANIMATIONS";
+    public static final String FONTS = "FONTS";
+
     public OverlayGroup(String title) {
         this.title = title;
     }

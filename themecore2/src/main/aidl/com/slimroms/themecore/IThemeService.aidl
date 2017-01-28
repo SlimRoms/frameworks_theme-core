@@ -24,7 +24,7 @@ interface IThemeService {
     * @return Permissions bit mask, 0 if ok
     */
     int checkPermissions();
-    boolean installOverlaysFromTheme(in OverlayThemeInfo info);
+    boolean installOverlaysFromTheme(in Theme theme, in OverlayThemeInfo info);
     boolean uninstallOverlays(in OverlayThemeInfo info);
     boolean isRebootRequired();
     void reboot();

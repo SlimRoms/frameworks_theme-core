@@ -4,10 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class OverlayThemeInfo implements Parcelable {
-    public final List<OverlayGroup> groups = new ArrayList<>();
+    public final HashMap<String, OverlayGroup> groups = new HashMap<>();
 
     public OverlayThemeInfo() {
 
@@ -24,11 +25,11 @@ public class OverlayThemeInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeTypedList(groups);
+        parcel.writeMap(groups);
     }
 
     public void readFromParcel(Parcel in) {
-        in.readTypedList(groups, OverlayGroup.CREATOR);
+        in.readMap(groups, OverlayGroup.class.getClassLoader());
     }
 
     public static final Creator<OverlayThemeInfo> CREATOR = new Creator<OverlayThemeInfo>() {
