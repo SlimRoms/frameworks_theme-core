@@ -11,6 +11,7 @@ public class OverlayGroup implements Parcelable {
     public final List<Overlay> overlays = new ArrayList<>();
 
     public final ArrayMap<String, String> styles = new ArrayMap<>();
+    public String selectedStyle = "";
 
     public String title;
 
@@ -36,12 +37,14 @@ public class OverlayGroup implements Parcelable {
         parcel.writeString(title);
         parcel.writeTypedList(overlays);
         parcel.writeMap(styles);
+        parcel.writeString(selectedStyle);
     }
 
     public void readFromParcel(Parcel in) {
         title = in.readString();
         in.readTypedList(overlays, Overlay.CREATOR);
         in.readMap(styles, String.class.getClassLoader());
+        selectedStyle = in.readString();
     }
 
     public static final Creator<OverlayGroup> CREATOR = new Creator<OverlayGroup>() {

@@ -5,11 +5,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Overlay implements Parcelable {
-    public final List<OverlayFlavor> flavors = new ArrayList<>();
-
+    public final HashMap<String, OverlayFlavor> flavors = new HashMap<>();
     public String overlayName;
     public String targetPackage;
     public boolean isOverlayInstalled;
@@ -43,7 +43,7 @@ public class Overlay implements Parcelable {
         parcel.writeInt(isOverlayInstalled ? 1 : 0);
         parcel.writeInt(isTargetPackageInstalled ? 1 : 0);
         parcel.writeInt(checked ? 1 : 0);
-        parcel.writeTypedList(flavors);
+        parcel.writeMap(flavors);
         parcel.writeInt(isOverlayEnabled ? 1 : 0);
         parcel.writeParcelable(overlayImage, flags);
     }
@@ -54,13 +54,13 @@ public class Overlay implements Parcelable {
         isOverlayInstalled = in.readInt() == 1;
         isTargetPackageInstalled = in.readInt() == 1;
         checked = in.readInt() == 1;
-        in.readTypedList(flavors, OverlayFlavor.CREATOR);
+        in.readMap(flavors, OverlayFlavor.class.getClassLoader());
         isOverlayEnabled = in.readInt() == 1;
         overlayImage = in.readParcelable(Bitmap.class.getClassLoader());
     }
 
     public void clearSelectedFlavors() {
-        for (OverlayFlavor flavor : flavors)
+        for (OverlayFlavor flavor : flavors.values())
             flavor.selected = "";
     }
 
