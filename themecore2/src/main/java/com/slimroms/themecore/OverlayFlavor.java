@@ -12,7 +12,7 @@ public class OverlayFlavor implements Parcelable {
     public ArrayMap<String, String> flavors = new ArrayMap<>();
     public String selected;
 
-    public OverlayFlavor(String name, String key) {
+    public OverlayFlavor(String key, String name) {
         this.name = name;
         this.key = key;
     }
