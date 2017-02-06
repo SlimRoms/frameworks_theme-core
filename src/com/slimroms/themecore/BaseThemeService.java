@@ -11,8 +11,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 
-import com.slimroms.themecore.R;
-
 import java.util.HashMap;
 
 public abstract class BaseThemeService extends Service {
@@ -83,5 +81,15 @@ public abstract class BaseThemeService extends Service {
     protected void notifyInstallComplete() {
         showNotification(NOTIFICATION_INSTALL_ID, R.drawable.check_circle,
                 R.string.notification_install_complete);
+    }
+
+    protected void notifyUninstallProgress(int max, int progress) {
+        showOngoingNotification(NOTIFICATION_INSTALL_ID, R.drawable.delete,
+                R.string.notification_uninstall_progress, max, progress);
+    }
+
+    protected void notifyUninstallComplete() {
+        showNotification(NOTIFICATION_INSTALL_ID, R.drawable.check_circle,
+                R.string.notification_uninstall_complete);
     }
 }
