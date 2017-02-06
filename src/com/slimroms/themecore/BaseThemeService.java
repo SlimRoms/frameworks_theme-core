@@ -11,6 +11,8 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 
+import com.slimroms.themecore.R;
+
 import java.util.HashMap;
 
 public abstract class BaseThemeService extends Service {
