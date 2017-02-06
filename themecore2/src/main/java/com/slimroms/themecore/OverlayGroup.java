@@ -5,12 +5,13 @@ import android.os.Parcelable;
 import android.util.ArrayMap;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class OverlayGroup implements Parcelable {
     public final List<Overlay> overlays = new ArrayList<>();
 
-    public final ArrayMap<String, String> styles = new ArrayMap<>();
+    public final LinkedHashMap<String, String> styles = new LinkedHashMap<>();
     public String selectedStyle = "";
 
     public String title;
