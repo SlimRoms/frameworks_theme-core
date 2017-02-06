@@ -4,9 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Overlay implements Parcelable {
     public final HashMap<String, OverlayFlavor> flavors = new HashMap<>();

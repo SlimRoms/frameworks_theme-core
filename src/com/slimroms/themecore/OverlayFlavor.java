@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.ArrayMap;
 
-import java.util.ArrayList;
-
 public class OverlayFlavor implements Parcelable {
     public String name;
     public String key;

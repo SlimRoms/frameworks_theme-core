@@ -2,7 +2,6 @@ package com.slimroms.themecore;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.ArrayMap;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

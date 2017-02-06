@@ -3,9 +3,7 @@ package com.slimroms.themecore;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class OverlayThemeInfo implements Parcelable {
     public final HashMap<String, OverlayGroup> groups = new HashMap<>();
