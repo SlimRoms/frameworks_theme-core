@@ -13,16 +13,12 @@ public class OverlayGroup implements Parcelable {
     public final LinkedHashMap<String, String> styles = new LinkedHashMap<>();
     public String selectedStyle = "";
 
-    public String title;
-
     public static final String OVERLAYS = "OVERLAYS";
     public static final String BOOTANIMATIONS = "BOOTANIMATIONS";
     public static final String FONTS = "FONTS";
     public static final String WALLPAPERS = "WALLPAPERS";
 
-    public OverlayGroup(String title) {
-        this.title = title;
-    }
+    public OverlayGroup() { }
 
     private OverlayGroup(Parcel in) {
         readFromParcel(in);
@@ -35,14 +31,12 @@ public class OverlayGroup implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeString(title);
         parcel.writeTypedList(overlays);
         parcel.writeMap(styles);
         parcel.writeString(selectedStyle);
     }
 
     public void readFromParcel(Parcel in) {
-        title = in.readString();
         in.readTypedList(overlays, Overlay.CREATOR);
         in.readMap(styles, String.class.getClassLoader());
         selectedStyle = in.readString();
