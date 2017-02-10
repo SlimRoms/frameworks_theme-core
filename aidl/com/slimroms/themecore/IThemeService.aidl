@@ -26,8 +26,25 @@ interface IThemeService {
     int checkPermissions();
     boolean installOverlaysFromTheme(in Theme theme, in OverlayThemeInfo info);
     boolean uninstallOverlays(in OverlayThemeInfo info);
+
+    /**
+    * @return Whether some kind of restart/reboot required after the previous operation
+    */
     boolean isRebootRequired();
+
+    /**
+    * Performs reboot
+    */
     void reboot();
+
+    /**
+    * @return Whether backend can be used as a themes provider. If false, connection will be dropped
+    */
     boolean isAvailable();
+
+    /**
+    * @param packageName Theme apk package name
+    * @return Theme instantiated object
+    */
     Theme getThemeByPackage(in String packageName);
 }
