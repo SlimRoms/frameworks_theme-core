@@ -18,6 +18,7 @@ public abstract class BaseThemeService extends Service {
     private HashMap<String, Theme> mThemes;
 
     private static final int NOTIFICATION_INSTALL_ID = 1001;
+    private static final int NOTIFICATION_UNINSTALL_ID = 1002;
     private NotificationManager mNotifyManager;
 
     public abstract BaseThemeHelper getThemeHelper();
@@ -84,12 +85,12 @@ public abstract class BaseThemeService extends Service {
     }
 
     protected void notifyUninstallProgress(int max, int progress) {
-        showOngoingNotification(NOTIFICATION_INSTALL_ID, R.drawable.delete,
+        showOngoingNotification(NOTIFICATION_UNINSTALL_ID, R.drawable.delete,
                 R.string.notification_uninstall_progress, max, progress);
     }
 
     protected void notifyUninstallComplete() {
-        showNotification(NOTIFICATION_INSTALL_ID, R.drawable.check_circle,
+        showNotification(NOTIFICATION_UNINSTALL_ID, R.drawable.check_circle,
                 R.string.notification_uninstall_complete);
     }
 }
