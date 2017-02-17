@@ -2,6 +2,7 @@
 package com.slimroms.themecore;
 
 import com.slimroms.themecore.Theme;
+import com.slimroms.themecore.OverlayGroup;
 import com.slimroms.themecore.OverlayThemeInfo;
 
 // Declare any non-default types here with import statements
@@ -26,6 +27,11 @@ interface IThemeService {
     int checkPermissions();
     boolean installOverlaysFromTheme(in Theme theme, in OverlayThemeInfo info);
     boolean uninstallOverlays(in Theme theme, in OverlayThemeInfo info);
+
+    /**
+    * @param group Collection of installed overlays found by the backend
+    */
+    void getInstalledOverlays(out OverlayGroup group);
 
     /**
     * @return Whether some kind of restart/reboot required after the previous operation
