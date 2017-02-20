@@ -10,6 +10,11 @@ import com.slimroms.themecore.OverlayThemeInfo;
 interface IThemeService {
 
     /**
+    * @return Tab header for the collection of installed overlays provided by this backend
+    */
+    String getBackendTitle();
+
+    /**
     * @param themes Collection of available themes found by the backend
     * @return Collection length
     */
@@ -26,7 +31,7 @@ interface IThemeService {
     */
     int checkPermissions();
     boolean installOverlaysFromTheme(in Theme theme, in OverlayThemeInfo info);
-    boolean uninstallOverlays(in Theme theme, in OverlayThemeInfo info);
+    boolean uninstallOverlays(in OverlayGroup group);
 
     /**
     * @param group Collection of installed overlays found by the backend
