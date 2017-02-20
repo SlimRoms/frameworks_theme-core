@@ -59,6 +59,9 @@ public abstract class BaseThemeService extends Service {
         builder.setContentText(getString(text));
         builder.setStyle(new NotificationCompat.BigTextStyle());
         mNotifyManager.notify(notificationId, builder.build());
+        final Intent busyIntent = new Intent(Broadcast.ACTION_BACKEND_NOT_BUSY);
+        busyIntent.putExtra(Broadcast.EXTRA_BACKEND_NAME, mBackendName);
+        sendBroadcast(busyIntent);
     }
 
     private void showOngoingNotification(int notificationId, @DrawableRes int icon, @StringRes int text,
@@ -72,6 +75,9 @@ public abstract class BaseThemeService extends Service {
         builder.setAutoCancel(false);
         builder.setOngoing(true);
         mNotifyManager.notify(notificationId, builder.build());
+        final Intent busyIntent = new Intent(Broadcast.ACTION_BACKEND_BUSY);
+        busyIntent.putExtra(Broadcast.EXTRA_BACKEND_NAME, mBackendName);
+        sendBroadcast(busyIntent);
     }
 
     protected void notifyInstallProgress(int max, int progress) {
