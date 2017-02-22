@@ -3,6 +3,8 @@ package com.slimroms.themecore;
 import android.content.IntentFilter;
 
 public class Broadcast {
+    public static final String ACTION_BACKEND_QUERY = "com.slimroms.THEME_BACKEND";
+
     public static final String ACTION_BACKEND_CONNECTED = "ACTION_BACKEND_CONNECTED";
     public static final String ACTION_BACKEND_DISCONNECTED = "ACTION_BACKEND_DISCONNECTED";
     public static final String ACTION_BACKEND_BUSY = "ACTION_BACKEND_BUSY";
