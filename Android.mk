@@ -1,6 +1,17 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
+LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := \
+    apache-commons-io:libs/commons-io-2.5.jar \
+    zipsigner:libs/zipsigner-lib-1.17.jar \
+    zipio:libs/zipio-lib-1.8.jar \
+    kellinwood-logging-android:libs/kellinwood-logging-android-1.4.jar \
+    kellinwood-logging-lib:libs/kellinwood-logging-lib-1.1.jar \
+    kellinwood-logging-log4j:libs/kellinwood-logging-log4j-1.0.jar
+
+include $(BUILD_MULTI_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_USE_AAPT2 := true
 LOCAL_MODULE := theme-core-res
 LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
