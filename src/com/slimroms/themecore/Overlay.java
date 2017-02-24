@@ -17,6 +17,7 @@ public class Overlay implements Parcelable {
     public Bitmap overlayImage;
     public String themePackage;
     public float overlayVersion;
+    public String tag;
 
     public Overlay(String overlayName, String targetPackage, boolean isTargetPackageInstalled) {
         this.overlayName = overlayName;
@@ -50,6 +51,7 @@ public class Overlay implements Parcelable {
         parcel.writeParcelable(overlayImage, flags);
         parcel.writeString(themePackage);
         parcel.writeFloat(overlayVersion);
+        parcel.writeString(tag);
     }
 
     public void readFromParcel(Parcel in) {
@@ -63,6 +65,7 @@ public class Overlay implements Parcelable {
         overlayImage = in.readParcelable(Bitmap.class.getClassLoader());
         themePackage = in.readString();
         overlayVersion = in.readFloat();
+        tag = in.readString();
     }
 
     public void clearSelectedFlavors() {
