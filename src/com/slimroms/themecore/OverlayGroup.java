@@ -43,6 +43,12 @@ public class OverlayGroup implements Parcelable {
         selectedStyle = in.readString();
     }
 
+    public void clearSelected() {
+        for (Overlay overlay : overlays) {
+            overlay.checked = false;
+        }
+    }
+
     public void sort() {
         Collections.sort(overlays);
     }
