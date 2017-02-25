@@ -3,10 +3,11 @@ package com.slimroms.themecore;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.HashMap;
 
-public class Overlay implements Parcelable {
+public class Overlay implements Parcelable, Comparable<Overlay> {
     public final HashMap<String, OverlayFlavor> flavors = new HashMap<>();
     public String overlayName;
     public String targetPackage;
@@ -71,6 +72,11 @@ public class Overlay implements Parcelable {
     public void clearSelectedFlavors() {
         for (OverlayFlavor flavor : flavors.values())
             flavor.selected = "";
+    }
+
+    @Override
+    public int compareTo(@NonNull Overlay another) {
+        return this.overlayName.compareTo(another.overlayName);
     }
 
     public static final Creator<Overlay> CREATOR = new Creator<Overlay>() {

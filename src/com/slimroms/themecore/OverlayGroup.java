@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -40,6 +41,10 @@ public class OverlayGroup implements Parcelable {
         in.readTypedList(overlays, Overlay.CREATOR);
         in.readMap(styles, String.class.getClassLoader());
         selectedStyle = in.readString();
+    }
+
+    public void sort() {
+        Collections.sort(overlays);
     }
 
     public static final Creator<OverlayGroup> CREATOR = new Creator<OverlayGroup>() {
