@@ -4,8 +4,9 @@ import android.content.ComponentName;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
-public class Theme implements Parcelable {
+public class Theme implements Parcelable, Comparable<Theme> {
 
     public String name;
     public String packageName;
@@ -55,6 +56,11 @@ public class Theme implements Parcelable {
         backendName = parcel.readParcelable(ComponentName.class.getClassLoader());
         themeAuthor = parcel.readString();
         themeLogo = parcel.readParcelable(Bitmap.class.getClassLoader());
+    }
+
+    @Override
+    public int compareTo(@NonNull Theme another) {
+        return this.name.compareTo(another.name);
     }
 
     public static final Creator<Theme> CREATOR
