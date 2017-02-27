@@ -28,6 +28,9 @@ LOCAL_SRC_FILES := \
     $(call all-java-files-under,src) \
     $(call all-Iaidl-files-under,aidl)
 
+LOCAL_STATIC_JAVA_LIBRARIES := \
+    apache-commons-io
+
 LOCAL_STATIC_ANDROID_LIBRARIES := \
     theme-core-res
 
