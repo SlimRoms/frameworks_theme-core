@@ -22,7 +22,7 @@ interface IThemeService {
 
     /**
     * @param theme Theme that was selected by user
-    * @param info Selected theme's overlays
+    * @param info Selected theme's content grouped by type
     */
     void getThemeContent(in Theme theme, out OverlayThemeInfo info);
 
@@ -30,7 +30,17 @@ interface IThemeService {
     * @return Permissions bit mask, 0 if ok
     */
     int checkPermissions();
+
+    /**
+    * Performs the actual installation of selected overlays
+    * @param theme Theme that contains selected overlays
+    * @param info Full theme content with some overlays selected by the user
+    */
     boolean installOverlaysFromTheme(in Theme theme, in OverlayThemeInfo info);
+
+    /**
+    * @param group Collection previously returned by {@link #getInstalledOverlays(OverlayGroup)} with some overlays selected by the user
+    */
     boolean uninstallOverlays(in OverlayGroup group);
 
     /**
