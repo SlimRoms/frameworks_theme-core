@@ -53,6 +53,16 @@ public class OverlayGroup implements Parcelable {
         Collections.sort(overlays);
     }
 
+    public int getSelectedCount() {
+        int result = 0;
+        for (Overlay overlay : overlays) {
+            if (overlay.checked) {
+                result++;
+            }
+        }
+        return result;
+    }
+
     public static final Creator<OverlayGroup> CREATOR = new Creator<OverlayGroup>() {
         @Override
         public OverlayGroup createFromParcel(Parcel parcel) {

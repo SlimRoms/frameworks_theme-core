@@ -45,10 +45,7 @@ public class OverlayThemeInfo implements Parcelable {
     public int getSelectedCount() {
         int result = 0;
         for (OverlayGroup group : groups.values()) {
-            for (Overlay overlay : group.overlays) {
-                if (overlay.checked)
-                    result++;
-            }
+            result += group.getSelectedCount();
         }
         return result;
     }
