@@ -7,7 +7,8 @@ LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := \
     zipio:libs/zipio-lib-1.8.jar \
     kellinwood-logging-android:libs/kellinwood-logging-android-1.4.jar \
     kellinwood-logging-lib:libs/kellinwood-logging-lib-1.1.jar \
-    kellinwood-logging-log4j:libs/kellinwood-logging-log4j-1.0.jar
+    kellinwood-logging-log4j:libs/kellinwood-logging-log4j-1.0.jar \
+	gson:libs/gson-2.8.0.jar
 
 include $(BUILD_MULTI_PREBUILT)
 
