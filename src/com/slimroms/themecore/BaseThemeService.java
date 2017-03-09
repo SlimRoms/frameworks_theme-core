@@ -98,7 +98,7 @@ public abstract class BaseThemeService extends Service {
 
     @Override
     public File getCacheDir() {
-        File cache = new File("/data/system/theme/cache" + getPackageName());
+        File cache = new File("/data/system/theme/cache/" + getPackageName());
         try {
             Os.chmod(cache.getAbsolutePath(), 00777);
         } catch (Exception e) {
@@ -107,14 +107,14 @@ public abstract class BaseThemeService extends Service {
         return cache;
     }
 
-    public ThemePrefs getThemePrefs() {
+    protected ThemePrefs getThemePrefs() {
         if (mThemePrefs == null) {
             mThemePrefs = new ThemePrefs(getCacheDir() + "/settings.json");
         }
         return mThemePrefs;
     }
 
-    public ThemePrefs getThemePrefs(String fileName) {
+    protected ThemePrefs getThemePrefs(String fileName) {
         return new ThemePrefs(getCacheDir() + "/" + fileName + ".json");
     }
 
