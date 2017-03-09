@@ -10,7 +10,9 @@ import android.os.IBinder;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
+import android.system.Os;
 
+import java.io.File;
 import java.util.HashMap;
 
 public abstract class BaseThemeService extends Service {
@@ -20,6 +22,8 @@ public abstract class BaseThemeService extends Service {
     private static final int NOTIFICATION_INSTALL_ID = 1001;
     private static final int NOTIFICATION_UNINSTALL_ID = 1002;
     private NotificationManager mNotifyManager;
+
+    private ThemePrefs mThemePrefs;
 
     public abstract BaseThemeHelper getThemeHelper();
 
@@ -90,6 +94,28 @@ public abstract class BaseThemeService extends Service {
         final Intent busyIntent = new Intent(Broadcast.ACTION_BACKEND_BUSY);
         busyIntent.putExtra(Broadcast.EXTRA_BACKEND_NAME, mBackendName);
         sendBroadcast(busyIntent);
+    }
+
+    @Override
+    public File getCacheDir() {
+        File cache = new File("/data/system/theme/cache" + getPackageName());
+        try {
+            Os.chmod(cache.getAbsolutePath(), 00777);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cache;
+    }
+
+    public ThemePrefs getThemePrefs() {
+        if (mThemePrefs == null) {
+            mThemePrefs = new ThemePrefs(getCacheDir() + "/settings.json");
+        }
+        return mThemePrefs;
+    }
+
+    public ThemePrefs getThemePrefs(String fileName) {
+        return new ThemePrefs(getCacheDir() + "/" + fileName + ".json");
     }
 
     protected void notifyInstallProgress(int max, int progress) {
