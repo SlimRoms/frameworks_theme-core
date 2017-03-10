@@ -115,13 +115,19 @@ public abstract class BaseThemeService extends Service {
 
     @Override
     public File getCacheDir() {
-        File cache = new File("/data/system/theme/cache/" + getPackageName());
+        File cache = new File("/data/system/theme/cache/");
         try {
             Os.chmod(cache.getAbsolutePath(), 00777);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return cache;
+        File appCache = new File(cache, getPackageName());
+        try {
+            Os.chmod(appCache.getAbsolutePath(), 00777);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return appCache;
     }
 
     protected ThemePrefs getThemePrefs() {
