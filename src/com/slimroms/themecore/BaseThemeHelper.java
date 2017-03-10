@@ -18,5 +18,26 @@
 package com.slimroms.themecore;
 
 
+import android.os.RemoteException;
+
 public abstract class BaseThemeHelper extends IThemeService.Stub {
+    @Override
+    public int checkPermissions() throws RemoteException {
+        return 0;
+    }
+
+    @Override
+    public boolean isAvailable() throws RemoteException {
+        return true;
+    }
+
+    @Override
+    public boolean isRebootRequired() throws RemoteException {
+        return false;
+    }
+
+    @Override
+    public void reboot() throws RemoteException {
+
+    }
 }
