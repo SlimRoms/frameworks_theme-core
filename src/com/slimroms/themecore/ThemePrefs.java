@@ -61,6 +61,7 @@ public class ThemePrefs {
             mPrefs = new JSONObject(json);
         } catch (IOException|JSONException e) {
             e.printStackTrace();
+            mPrefs = new JSONObject();
         }
     }
 
