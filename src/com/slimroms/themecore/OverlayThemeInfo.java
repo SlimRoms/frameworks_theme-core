@@ -66,4 +66,10 @@ public class OverlayThemeInfo implements Parcelable {
         }
         return result;
     }
+
+    public void clearSelection() {
+        for (OverlayGroup group : groups.values()) {
+            group.clearSelected();
+        }
+    }
 }
