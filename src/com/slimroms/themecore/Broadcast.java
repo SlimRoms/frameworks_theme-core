@@ -26,6 +26,7 @@ public class Broadcast {
     public static final String ACTION_BACKEND_DISCONNECTED = "com.slimroms.ACTION_BACKEND_DISCONNECTED";
     public static final String ACTION_BACKEND_BUSY = "com.slimroms.ACTION_BACKEND_BUSY";
     public static final String ACTION_BACKEND_NOT_BUSY = "com.slimroms.ACTION_BACKEND_NOT_BUSY";
+    public static final String ACTION_REDRAW = "com.slimroms.ACTION_REDRAW";
 
     public static final String EXTRA_BACKEND_NAME = "EXTRA_BACKEND_NAME";
     public static final String EXTRA_THEME_PACKAGE = "EXTRA_THEME_PACKAGE";
@@ -48,5 +49,14 @@ public class Broadcast {
             mBackendBusyFilter.addAction(ACTION_BACKEND_NOT_BUSY);
         }
         return mBackendBusyFilter;
+    }
+
+    private static IntentFilter mRedrawFilter;
+    public static IntentFilter getRedrawFilter() {
+        if (mRedrawFilter == null) {
+            mRedrawFilter = new IntentFilter();
+            mRedrawFilter.addAction(ACTION_REDRAW);
+        }
+        return mRedrawFilter;
     }
 }
