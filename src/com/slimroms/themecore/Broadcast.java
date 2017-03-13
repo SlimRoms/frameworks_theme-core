@@ -22,10 +22,10 @@ import android.content.IntentFilter;
 public class Broadcast {
     public static final String ACTION_BACKEND_QUERY = "com.slimroms.THEME_BACKEND";
 
-    public static final String ACTION_BACKEND_CONNECTED = "ACTION_BACKEND_CONNECTED";
-    public static final String ACTION_BACKEND_DISCONNECTED = "ACTION_BACKEND_DISCONNECTED";
-    public static final String ACTION_BACKEND_BUSY = "ACTION_BACKEND_BUSY";
-    public static final String ACTION_BACKEND_NOT_BUSY = "ACTION_BACKEND_NOT_BUSY";
+    public static final String ACTION_BACKEND_CONNECTED = "com.slimroms.ACTION_BACKEND_CONNECTED";
+    public static final String ACTION_BACKEND_DISCONNECTED = "com.slimroms.ACTION_BACKEND_DISCONNECTED";
+    public static final String ACTION_BACKEND_BUSY = "com.slimroms.ACTION_BACKEND_BUSY";
+    public static final String ACTION_BACKEND_NOT_BUSY = "com.slimroms.ACTION_BACKEND_NOT_BUSY";
 
     public static final String EXTRA_BACKEND_NAME = "EXTRA_BACKEND_NAME";
     public static final String EXTRA_THEME_PACKAGE = "EXTRA_THEME_PACKAGE";
