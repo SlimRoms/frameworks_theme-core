@@ -17,7 +17,9 @@
 <resources>
     <string name="app_name">ThemeCore</string>
     <string name="notification_install_progress">Selected overlays are being installed…</string>
+    <string name="notification_install_progress_overlay">Overlay is being installed: %s</string>
     <string name="notification_install_complete">Installation complete</string>
     <string name="notification_uninstall_progress">Selected overlays are being uninstalled…</string>
+    <string name="notification_uninstall_progress_overlay">Overlay is being uninstalled: %s</string>
     <string name="notification_uninstall_complete">Uninstallation complete</string>
 </resources>

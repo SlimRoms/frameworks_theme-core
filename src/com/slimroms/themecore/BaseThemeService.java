@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.system.Os;
@@ -97,11 +98,11 @@ public abstract class BaseThemeService extends Service {
         sendBroadcast(busyIntent);
     }
 
-    private void showOngoingNotification(int notificationId, @DrawableRes int icon, @StringRes int text,
+    private void showOngoingNotification(int notificationId, @DrawableRes int icon, String text,
                                          int max, int progress) {
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(icon);
-        builder.setContentText(getString(text));
+        builder.setContentText(text);
         builder.setProgress(max, progress, false);
         builder.setNumber(max);
         builder.setStyle(new NotificationCompat.BigTextStyle());
@@ -141,9 +142,12 @@ public abstract class BaseThemeService extends Service {
         return new ThemePrefs(getCacheDir() + "/" + fileName + ".json");
     }
 
-    protected void notifyInstallProgress(int max, int progress) {
-        showOngoingNotification(NOTIFICATION_INSTALL_ID, R.drawable.auto_fix,
-                R.string.notification_install_progress, max, progress);
+    protected void notifyInstallProgress(int max, int progress, @Nullable String overlayName) {
+        String text = (overlayName != null)
+                ? String.format(
+                        getString(R.string.notification_install_progress_overlay), overlayName)
+                : getString(R.string.notification_install_progress);
+        showOngoingNotification(NOTIFICATION_INSTALL_ID, R.drawable.auto_fix, text, max, progress);
     }
 
     protected void notifyInstallComplete() {
@@ -151,9 +155,12 @@ public abstract class BaseThemeService extends Service {
                 R.string.notification_install_complete);
     }
 
-    protected void notifyUninstallProgress(int max, int progress) {
-        showOngoingNotification(NOTIFICATION_UNINSTALL_ID, R.drawable.delete,
-                R.string.notification_uninstall_progress, max, progress);
+    protected void notifyUninstallProgress(int max, int progress, @Nullable String overlayName) {
+        String text = (overlayName != null)
+                ? String.format(
+                        getString(R.string.notification_uninstall_progress_overlay), overlayName)
+                : getString(R.string.notification_uninstall_progress);
+        showOngoingNotification(NOTIFICATION_UNINSTALL_ID, R.drawable.delete, text, max, progress);
     }
 
     protected void notifyUninstallComplete() {
