@@ -44,12 +44,14 @@ public class OverlayFlavor implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(name);
+        parcel.writeString(key);
         parcel.writeMap(flavors);
         parcel.writeString(selected);
     }
 
     public void readFromParcel(Parcel in) {
         name = in.readString();
+        key = in.readString();
         in.readMap(flavors, String.class.getClassLoader());
         if (flavors == null) {
             flavors = new ArrayMap<>();
