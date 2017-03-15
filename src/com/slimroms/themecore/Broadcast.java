@@ -30,6 +30,7 @@ public class Broadcast {
 
     public static final String EXTRA_BACKEND_NAME = "EXTRA_BACKEND_NAME";
     public static final String EXTRA_THEME_PACKAGE = "EXTRA_THEME_PACKAGE";
+    public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 
     private static IntentFilter mBackendConnectFilter;
     public static IntentFilter getBackendConnectFilter() {

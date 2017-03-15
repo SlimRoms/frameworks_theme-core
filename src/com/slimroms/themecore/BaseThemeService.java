@@ -103,6 +103,7 @@ public abstract class BaseThemeService extends Service {
         mNotifyManager.notify(notificationId, builder.build());
         final Intent busyIntent = new Intent(Broadcast.ACTION_BACKEND_BUSY);
         busyIntent.putExtra(Broadcast.EXTRA_BACKEND_NAME, mBackendName);
+        busyIntent.putExtra(Broadcast.EXTRA_MESSAGE, text);
         sendBroadcast(busyIntent);
     }
 
