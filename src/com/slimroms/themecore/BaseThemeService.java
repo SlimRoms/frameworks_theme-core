@@ -191,8 +191,12 @@ public abstract class BaseThemeService extends Service {
                     }
                 } else {
                     deleteContents(f);
+                    // Now delete the empty folder
+                    f.delete();
                 }
             }
+            // Now delete the main empty folder
+            file.delete();
         }
     }
 }
