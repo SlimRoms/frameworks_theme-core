@@ -59,12 +59,7 @@ public abstract class BaseThemeService extends Service {
     @Override
     public void onDestroy() {
         // let's be nice to the storage
-        try {
-            getCacheDir().delete();
-        }
-        catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        deleteContents(getCacheDir());
         super.onDestroy();
     }
 
@@ -166,5 +161,23 @@ public abstract class BaseThemeService extends Service {
     protected void notifyUninstallComplete() {
         showNotification(NOTIFICATION_UNINSTALL_ID, R.drawable.check_circle,
                 R.string.notification_uninstall_complete);
+    }
+
+    protected static void deleteContents(File file) {
+        if (file.isDirectory()) {
+            String[] children = file.list();
+            for (int i = 0; i < children.length; i++) {
+                File f = new File(file, children[i]);
+                if (f.isFile()) {
+                    if (f.delete()) {
+                        //Log.d(TAG, "Successfully deleted " + f.getPath());
+                    } else {
+                        //Log.d(TAG, "Failed to delete " + f.getPath());
+                    }
+                } else {
+                    deleteContents(f);
+                }
+            }
+        }
     }
 }
