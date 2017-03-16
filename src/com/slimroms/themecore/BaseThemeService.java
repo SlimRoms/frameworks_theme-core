@@ -29,11 +29,14 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.system.Os;
+import android.util.Log;
 
 import java.io.File;
 import java.util.HashMap;
 
 public abstract class BaseThemeService extends Service {
+    private static String TAG;
+
     private ComponentName mBackendName;
     private HashMap<String, Theme> mThemes;
 
@@ -52,6 +55,7 @@ public abstract class BaseThemeService extends Service {
         super.onCreate();
         mBackendName =  new ComponentName(this, this.getClass());
         mThemes = new HashMap<>();
+        TAG = this.getClass().getSimpleName();
 
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
@@ -185,9 +189,9 @@ public abstract class BaseThemeService extends Service {
                 File f = new File(file, children[i]);
                 if (f.isFile()) {
                     if (f.delete()) {
-                        //Log.d(TAG, "Successfully deleted " + f.getPath());
+                        Log.d(TAG, "Successfully deleted " + f.getPath());
                     } else {
-                        //Log.d(TAG, "Failed to delete " + f.getPath());
+                        Log.d(TAG, "Failed to delete " + f.getPath());
                     }
                 } else {
                     deleteContents(f);
