@@ -109,9 +109,8 @@ public abstract class BaseThemeService extends Service {
         sendBroadcast(busyIntent);
     }
 
-    @Override
-    public File getCacheDir() {
-        File cache = new File("/data/system/theme/cache/");
+    private File createCache(String basePath) {
+        File cache = new File(basePath);
         try {
             Os.chmod(cache.getAbsolutePath(), 00777);
         } catch (Exception e) {
@@ -124,6 +123,22 @@ public abstract class BaseThemeService extends Service {
             e.printStackTrace();
         }
         return appCache;
+    }
+
+    @Override
+    public File getCacheDir() {
+        return createCache("/data/system/theme/cache/");
+    }
+
+    public File getPersistentCacheDir() {
+        return createCache("/data/system/theme/persistent-cache/");
+    }
+
+    public static void clearPesistentCache(String packageName) {
+        File cache = new File("/data/system/theme/persistent-cache/", packageName);
+        if (cache.exists()) {
+            deleteContents(cache);
+        }
     }
 
     protected ThemePrefs getThemePrefs() {
