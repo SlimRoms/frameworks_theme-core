@@ -179,4 +179,9 @@ public class ThemePrefs {
             mPrefs.remove(key);
         }
     }
+
+    public void removeFile() {
+        mFile.delete();
+    }
+
 }
