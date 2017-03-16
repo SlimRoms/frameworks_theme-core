@@ -61,13 +61,6 @@ public abstract class BaseThemeService extends Service {
     }
 
     @Override
-    public void onDestroy() {
-        // let's be nice to the storage
-        deleteContents(getCacheDir());
-        super.onDestroy();
-    }
-
-    @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
     }
