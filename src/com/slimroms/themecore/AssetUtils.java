@@ -29,7 +29,7 @@ import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
 public class AssetUtils {
 
-    private static final String TAG = "AssetUtils";
+    private static final String TAG = "SlimTM-AssetUtils";
 
     public static boolean copyAssetFolder(AssetManager am, String assetPath, String path) {
         try {
@@ -40,14 +40,17 @@ public class AssetUtils {
             boolean res = true;
             for (String file : files) {
                 if (am.list(assetPath + "/" + file).length == 0) {
+                    Log.d(TAG, "Copy asset file " + file + " from " + assetPath + " to " + path);
                     res &= copyAsset(am, assetPath + "/" + file, path + "/" + file);
                 } else {
+                    //Log.d(TAG, "Copy asset folder " + file + " from " + assetPath + " to " + path);
                     res &= copyAssetFolder(am, assetPath + "/" + file, path + "/" + file);
                 }
             }
             return res;
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e(TAG, "Copy asset failed from " + assetPath + " to " + path);
             return false;
         }
     }
@@ -57,7 +60,7 @@ public class AssetUtils {
         InputStream in;
         File parent = new File(toPath).getParentFile();
         if (!parent.exists() && !parent.mkdirs()) {
-            Log.d(TAG, "Unable to create " + parent.getAbsolutePath());
+            Log.e(TAG, "Unable to create " + parent.getAbsolutePath());
         }
 
         try {

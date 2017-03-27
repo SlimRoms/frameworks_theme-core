@@ -21,8 +21,12 @@
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.ArrayMap;
+import android.util.Log;
 
 public class OverlayFlavor implements Parcelable {
+
+    private static final String TAG = "SlimTM-OverlayFlavor";
+
     public String name;
     public String key;
     public ArrayMap<String, String> flavors = new ArrayMap<>();
@@ -31,6 +35,7 @@ public class OverlayFlavor implements Parcelable {
     public OverlayFlavor(String key, String name) {
         this.name = name;
         this.key = key;
+        Log.d(TAG,"created, name=" + name + " key=" + key);
     }
 
     private OverlayFlavor(Parcel in) {
