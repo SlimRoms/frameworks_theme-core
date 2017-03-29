@@ -37,6 +37,7 @@ public class Overlay implements Parcelable, Comparable<Overlay> {
     public String themePackage;
     public String overlayVersion;
     public String tag;
+    public String overlayPackage;
 
     public Overlay(String overlayName, String targetPackage, boolean isTargetPackageInstalled) {
         this.overlayName = overlayName;
@@ -47,6 +48,7 @@ public class Overlay implements Parcelable, Comparable<Overlay> {
         this.isOverlayEnabled = true;
         this.themePackage = "";
         this.overlayVersion = "";
+        this.overlayPackage = "";
     }
 
     private Overlay(Parcel in) {
@@ -71,6 +73,7 @@ public class Overlay implements Parcelable, Comparable<Overlay> {
         parcel.writeString(themePackage);
         parcel.writeString(overlayVersion);
         parcel.writeString(tag);
+        parcel.writeString(overlayPackage);
     }
 
     public void readFromParcel(Parcel in) {
@@ -85,6 +88,7 @@ public class Overlay implements Parcelable, Comparable<Overlay> {
         themePackage = in.readString();
         overlayVersion = in.readString();
         tag = in.readString();
+        overlayPackage = in.readString();
     }
 
     public void clearSelectedFlavors() {
