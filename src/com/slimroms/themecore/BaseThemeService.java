@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -44,6 +45,7 @@ public abstract class BaseThemeService extends Service {
     private static final int NOTIFICATION_INSTALL_ID = 1001;
     private static final int NOTIFICATION_UNINSTALL_ID = 1002;
     private NotificationManager mNotifyManager;
+    private PowerManager.WakeLock mWakelock;
 
     private ThemePrefs mThemePrefs;
 
@@ -196,6 +198,26 @@ public abstract class BaseThemeService extends Service {
             }
             // Now delete the main empty folder
             file.delete();
+        }
+    }
+
+    protected void startWakeLock() {
+        if (mWakelock == null) {
+            Log.d(TAG, "Getting a new WakeLock...");
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            Log.d(TAG, "PowerManager acquired");
+            mWakelock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                    this.getClass().getSimpleName() + "_WakeLock");
+            Log.d(TAG, "WakeLock created");
+        }
+        mWakelock.acquire();
+        Log.d(TAG, "WakeLock acquired");
+    }
+
+    protected void stopWakeLock() {
+        if (mWakelock != null && mWakelock.isHeld()) {
+            mWakelock.release();
+            Log.d(TAG, "WakeLock released");
         }
     }
 }
