@@ -65,6 +65,8 @@ public abstract class BaseThemeService extends Service {
 
     @Override
     public void onDestroy() {
+        mNotifyManager.cancel(NOTIFICATION_INSTALL_ID);
+        mNotifyManager.cancel(NOTIFICATION_UNINSTALL_ID);
         stopWakeLock();
         super.onDestroy();
     }
