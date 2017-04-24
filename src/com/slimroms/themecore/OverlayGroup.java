@@ -81,6 +81,15 @@ public class OverlayGroup implements Parcelable {
         return result;
     }
 
+    public Overlay findByTargetPackage(String targetPackage) {
+        for (Overlay overlay : overlays) {
+            if (overlay.targetPackage.equals(targetPackage)) {
+                return overlay;
+            }
+        }
+        return null;
+    }
+
     public static final Creator<OverlayGroup> CREATOR = new Creator<OverlayGroup>() {
         @Override
         public OverlayGroup createFromParcel(Parcel parcel) {
