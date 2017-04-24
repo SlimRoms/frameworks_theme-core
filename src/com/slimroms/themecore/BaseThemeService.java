@@ -64,6 +64,12 @@ public abstract class BaseThemeService extends Service {
     }
 
     @Override
+    public void onDestroy() {
+        stopWakeLock();
+        super.onDestroy();
+    }
+
+    @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
     }
