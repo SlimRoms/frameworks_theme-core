@@ -25,52 +25,62 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+
 import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 
 public class AssetUtils {
 
     private static final String TAG = "SlimTM-AssetUtils";
 
-    public static boolean copyAssetFolder(AssetManager am, String assetPath, String path) {
-        try {
-            String[] files = am.list(assetPath);
-            if (!new File(path).exists() && !new File(path).mkdirs()) {
-                throw new RuntimeException("cannot create directory: " + path);
-            }
-            boolean res = true;
-            for (String file : files) {
-                if (am.list(assetPath + "/" + file).length == 0) {
-                    Log.d(TAG, "Copy asset file " + file + " from " + assetPath + " to " + path);
-                    res &= copyAsset(am, assetPath + "/" + file, path + "/" + file);
-                } else {
-                    //Log.d(TAG, "Copy asset folder " + file + " from " + assetPath + " to " + path);
-                    res &= copyAssetFolder(am, assetPath + "/" + file, path + "/" + file);
-                }
-            }
-            return res;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e(TAG, "Copy asset failed from " + assetPath + " to " + path);
-            return false;
+    public static InputStream getAsset(AssetManager am, String path, Cipher cipher) throws IOException {
+        InputStream in = am.open(path);
+        if (cipher != null && path.endsWith(".enc")) {
+            return new CipherInputStream(in, cipher);
         }
+        return in;
+    }
+
+    public static boolean copyAssetFolder(AssetManager am, String assetPath, String path, Cipher cipher) throws IOException {
+        String[] files = am.list(assetPath);
+        if (!new File(path).exists() && !new File(path).mkdirs()) {
+            throw new RuntimeException("cannot create directory: " + path);
+        }
+        boolean res = true;
+        for (String file : files) {
+            if (am.list(assetPath + "/" + file).length == 0) {
+                Log.d(TAG, "Copy asset file " + file + " from " + assetPath + " to " + path);
+                res &= copyAsset(am, assetPath + "/" + file, path + "/" + file, cipher);
+            } else {
+                //Log.d(TAG, "Copy asset folder " + file + " from " + assetPath + " to " + path);
+                res &= copyAssetFolder(am, assetPath + "/" + file, path + "/" + file, cipher);
+            }
+        }
+        return res;
     }
 
     public static boolean copyAsset(AssetManager assetManager,
-                                    String fromAssetPath, String toPath) {
+                                    String fromAssetPath, String toPath, Cipher cipher) throws IOException {
         InputStream in;
         File parent = new File(toPath).getParentFile();
         if (!parent.exists() && !parent.mkdirs()) {
             Log.e(TAG, "Unable to create " + parent.getAbsolutePath());
         }
 
-        try {
+        if (toPath.endsWith(".enc")) {
+            toPath = toPath.substring(0, toPath.lastIndexOf("."));
+        }
+
+        if (cipher != null) {
+            in = getAsset(assetManager, fromAssetPath, cipher);
+        } else {
             in = assetManager.open(fromAssetPath);
+        }
+        if (in != null) {
             copyInputStreamToFile(in, new File(toPath));
             in.close();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
         }
+        return true;
     }
 }

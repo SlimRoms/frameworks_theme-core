@@ -23,6 +23,11 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Random;
 
 public class Theme implements Parcelable, Comparable<Theme> {
 
@@ -34,6 +39,8 @@ public class Theme implements Parcelable, Comparable<Theme> {
     public ComponentName backendName;
     public String themeAuthor;
     public Bitmap themeLogo;
+    public byte[] decryptionKey = new byte[16];
+    public byte[] ivKey = new byte[16];
 
     public Theme(ComponentName backendName, String name, String packageName,
                  String themeType, String themeVersion, int themeVersionCode, String themeAuthor,
@@ -67,6 +74,10 @@ public class Theme implements Parcelable, Comparable<Theme> {
         parcel.writeParcelable(backendName, flags);
         parcel.writeString(themeAuthor);
         parcel.writeParcelable(themeLogo, flags);
+        parcel.writeInt(decryptionKey.length);
+        parcel.writeByteArray(decryptionKey);
+        parcel.writeInt(ivKey.length);
+        parcel.writeByteArray(ivKey);
     }
 
     public void readFromParcel(Parcel parcel) {
@@ -78,6 +89,10 @@ public class Theme implements Parcelable, Comparable<Theme> {
         backendName = parcel.readParcelable(ComponentName.class.getClassLoader());
         themeAuthor = parcel.readString();
         themeLogo = parcel.readParcelable(Bitmap.class.getClassLoader());
+        decryptionKey = new byte[parcel.readInt()];
+        parcel.readByteArray(decryptionKey);
+        ivKey = new byte[parcel.readInt()];
+        parcel.readByteArray(ivKey);
     }
 
     @Override
