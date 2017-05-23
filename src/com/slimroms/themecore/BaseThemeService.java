@@ -152,13 +152,13 @@ public abstract class BaseThemeService extends Service {
 
     protected ThemePrefs getThemePrefs() {
         if (mThemePrefs == null) {
-            mThemePrefs = new ThemePrefs(getCacheDir() + "/settings.json");
+            mThemePrefs = new ThemePrefs(getPersistentCacheDir() + "/settings.json");
         }
         return mThemePrefs;
     }
 
     protected ThemePrefs getThemePrefs(String fileName) {
-        return new ThemePrefs(getCacheDir() + "/" + fileName + ".json");
+        return new ThemePrefs(getPersistentCacheDir() + "/" + fileName + ".json");
     }
 
     protected void notifyInstallProgress(int max, int progress, @Nullable String overlayName) {

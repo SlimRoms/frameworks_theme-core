@@ -20,19 +20,25 @@
 
 import android.support.annotation.Nullable;
 import android.util.ArraySet;
+import android.util.Log;
 
-import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.Set;
 
 
 public class ThemePrefs {
+
+    private static final String TAG = "ThemePrefs";
 
     private JSONObject mPrefs;
     private File mFile;
@@ -41,24 +47,29 @@ public class ThemePrefs {
         mFile = new File(path);
         if (!mFile.exists()) {
             if (!mFile.getParentFile().exists()) {
-                try {
-                    FileUtils.forceMkdirParent(mFile);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (!mFile.getParentFile().mkdirs()) {
+                    Log.e(TAG, "Unable to create dir " + mFile.getParentFile().getAbsolutePath());
                 }
-                //if (!mFile.getParentFile().mkdirs()) {
-                    //IOException e = new IOException("Unable to create directory - " + mFile.getParent());
-                    //throw new RuntimeException(e);
-                //}
             }
             try {
-                FileUtils.write(mFile, "{}", Charset.defaultCharset());
+                mFile.createNewFile();
+                try (PrintWriter out = new PrintWriter(mFile)) {
+                    out.println("");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         try {
-            String json = FileUtils.readFileToString(mFile, Charset.defaultCharset());
+            InputStream is = new FileInputStream(mFile);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+            String line = buf.readLine();
+            StringBuilder builder = new StringBuilder();
+            while (line != null) {
+                builder.append(line).append("\n");
+                line = buf.readLine();
+            }
+            String json = builder.toString();
             mPrefs = new JSONObject(json);
         } catch (IOException|JSONException e) {
             e.printStackTrace();
@@ -116,6 +127,7 @@ public class ThemePrefs {
     public void putString(String s, String s1) {
         try {
             mPrefs.put(s, s1);
+            apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -133,6 +145,7 @@ public class ThemePrefs {
         }
         try {
             mPrefs.put(s, jsonArray);
+            apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -141,6 +154,7 @@ public class ThemePrefs {
     public void putInt(String s, int i) {
         try {
             mPrefs.put(s, i);
+            apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -149,6 +163,7 @@ public class ThemePrefs {
     public void putLong(String s, long l) {
         try {
             mPrefs.put(s, l);
+            apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -157,6 +172,7 @@ public class ThemePrefs {
     public void putFloat(String s, float v) {
         try {
             mPrefs.put(s, String.valueOf(v));
+            apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -165,6 +181,7 @@ public class ThemePrefs {
     public void putBoolean(String s, boolean b) {
         try {
             mPrefs.put(s, b);
+            apply();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -172,6 +189,16 @@ public class ThemePrefs {
 
     public void remove(String s) {
         mPrefs.remove(s);
+    }
+
+    public void apply() {
+        try {
+            try (PrintWriter writer = new PrintWriter(mFile)) {
+                writer.println(mPrefs.toString(4));
+            }
+        } catch (IOException|JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clear() {
