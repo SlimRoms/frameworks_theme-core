@@ -133,6 +133,30 @@ public class ThemePrefs {
         }
     }
 
+    public String getTypeSelection(String packageName, String type) {
+        if (contains(packageName)) {
+            JSONObject o = mPrefs.optJSONObject(packageName);
+            return o.optString(type);
+        }
+        return null;
+    }
+
+    public void putTypeSelection(String packageName, String key, String type) {
+        try {
+            JSONObject o;
+            if (contains(packageName)) {
+                o = mPrefs.optJSONObject(packageName);
+            } else {
+                o = new JSONObject();
+            }
+            o.put(key, type);
+            mPrefs.put(packageName, o);
+            apply();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void putStringSet(String s, Set<String> set) {
         JSONArray jsonArray = new JSONArray();
         String[] temp = set.toArray(new String[0]);
