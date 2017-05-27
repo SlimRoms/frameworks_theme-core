@@ -54,7 +54,7 @@ public class ThemePrefs {
             try {
                 mFile.createNewFile();
                 try (PrintWriter out = new PrintWriter(mFile)) {
-                    out.println("");
+                    out.println("{}");
                 }
             } catch (IOException e) {
                 e.printStackTrace();

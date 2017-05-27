@@ -120,14 +120,24 @@ public abstract class BaseThemeService extends Service {
 
     private File createCache(String basePath) {
         File cache = new File(basePath);
+        if (!cache.exists()) {
+            if (!cache.mkdirs()) {
+                Log.e(TAG, "Unable to create dir " + cache.getAbsolutePath());
+            }
+        }
         try {
-            Os.chmod(cache.getAbsolutePath(), 00777);
+            Shell.chmod(cache.getAbsolutePath(), 777);
         } catch (Exception e) {
             e.printStackTrace();
         }
         File appCache = new File(cache, getPackageName());
+        if (!appCache.exists()) {
+            if (!appCache.mkdirs()) {
+                Log.e(TAG, "Unable to create dir " + appCache.getAbsolutePath());
+            }
+        }
         try {
-            Os.chmod(appCache.getAbsolutePath(), 00777);
+            Shell.chmod(appCache.getAbsolutePath(), 777);
         } catch (Exception e) {
             e.printStackTrace();
         }
