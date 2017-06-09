@@ -30,18 +30,20 @@ public class Theme implements Parcelable, Comparable<Theme> {
     public String packageName;
     public String themeType;
     public String themeVersion;
+    public int themeVersionCode;
     public ComponentName backendName;
     public String themeAuthor;
     public Bitmap themeLogo;
 
     public Theme(ComponentName backendName, String name, String packageName,
-                 String themeType, String themeVersion, String themeAuthor,
+                 String themeType, String themeVersion, int themeVersionCode, String themeAuthor,
                  Bitmap themeLogo) {
         this.backendName = backendName;
         this.name = name;
         this.packageName = packageName;
         this.themeType = themeType;
         this.themeVersion = themeVersion;
+        this.themeVersionCode = themeVersionCode;
         this.themeAuthor = themeAuthor;
         this.themeLogo = themeLogo;
     }
@@ -61,6 +63,7 @@ public class Theme implements Parcelable, Comparable<Theme> {
         parcel.writeString(packageName);
         parcel.writeString(themeType);
         parcel.writeString(themeVersion);
+        parcel.writeInt(themeVersionCode);
         parcel.writeParcelable(backendName, flags);
         parcel.writeString(themeAuthor);
         parcel.writeParcelable(themeLogo, flags);
@@ -71,6 +74,7 @@ public class Theme implements Parcelable, Comparable<Theme> {
         packageName = parcel.readString();
         themeType = parcel.readString();
         themeVersion = parcel.readString();
+        themeVersionCode = parcel.readInt();
         backendName = parcel.readParcelable(ComponentName.class.getClassLoader());
         themeAuthor = parcel.readString();
         themeLogo = parcel.readParcelable(Bitmap.class.getClassLoader());

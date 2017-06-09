@@ -78,10 +78,10 @@ public abstract class BaseThemeService extends Service {
 
     private final IThemeService.Stub mBinder = getThemeHelper();
 
-    protected Theme createTheme(String name, String packageName, String themeVersion, String themeAuthor,
-                                Bitmap themeLogo) {
-        final Theme theme = new Theme(mBackendName, name, packageName, getThemeType(), themeVersion, themeAuthor,
-                themeLogo);
+    protected Theme createTheme(String name, String packageName, String themeVersion,
+                                int themeVersionCode, String themeAuthor, Bitmap themeLogo) {
+        final Theme theme = new Theme(mBackendName, name, packageName, getThemeType(), themeVersion,
+                themeVersionCode, themeAuthor, themeLogo);
         mThemes.put(packageName, theme);
         return theme;
     }
