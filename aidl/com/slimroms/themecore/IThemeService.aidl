@@ -64,7 +64,7 @@ interface IThemeService {
     /**
     * @param group Collection of installed overlays found by the backend
     */
-    void getInstalledOverlays(out OverlayGroup group);
+    void getInstalledOverlays(out OverlayThemeInfo info);
 
     /**
     * @return Whether some kind of restart/reboot required after the previous operation
