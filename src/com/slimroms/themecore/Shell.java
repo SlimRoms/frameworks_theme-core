@@ -41,6 +41,16 @@ public class Shell {
         return output.exitCode == 0 && TextUtils.isEmpty(output.error);
     }
 
+    public static boolean chmodDir(File file, int perms) {
+        return chmodDir(file.getAbsolutePath(), perms);
+    }
+
+    public static boolean chmodDir(String path, int perms) {
+        CommandOutput output = runCommand("chmod -R " +
+                Integer.toString(perms) + " " + path);
+        return output.exitCode == 0 && TextUtils.isEmpty(output.error);
+    }
+
     private static CommandOutput runCommand(String cmd) {
         DataOutputStream os = null;
         Process process = null;
