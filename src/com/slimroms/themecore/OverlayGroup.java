@@ -36,6 +36,7 @@ public class OverlayGroup implements Parcelable {
     public static final String BOOTANIMATIONS = "BOOTANIMATIONS";
     public static final String FONTS = "FONTS";
     public static final String WALLPAPERS = "WALLPAPERS";
+    public static final String SOUNDS = "SOUNDS";
 
     public OverlayGroup() { }
 
