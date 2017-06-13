@@ -126,7 +126,7 @@ public abstract class BaseThemeService extends Service {
             }
         }
         try {
-            Shell.chmod(cache.getAbsolutePath(), 744);
+            Shell.chmod(cache.getAbsolutePath(), 700);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,7 +137,7 @@ public abstract class BaseThemeService extends Service {
             }
         }
         try {
-            Shell.chmod(appCache.getAbsolutePath(), 744);
+            Shell.chmod(appCache.getAbsolutePath(), 700);
         } catch (Exception e) {
             e.printStackTrace();
         }
