@@ -35,7 +35,8 @@ public class Overlay implements Parcelable, Comparable<Overlay> {
     public boolean isOverlayEnabled;
     public Bitmap overlayImage;
     public String themePackage;
-    public String overlayVersion;
+    public int overlayVersion;
+    public String themeVersion;
     public String tag;
     public String overlayPackage;
 
@@ -47,7 +48,7 @@ public class Overlay implements Parcelable, Comparable<Overlay> {
         this.checked = false;
         this.isOverlayEnabled = true;
         this.themePackage = "";
-        this.overlayVersion = "";
+        this.themeVersion = "";
         this.overlayPackage = "";
     }
 
@@ -71,7 +72,8 @@ public class Overlay implements Parcelable, Comparable<Overlay> {
         parcel.writeInt(isOverlayEnabled ? 1 : 0);
         parcel.writeParcelable(overlayImage, flags);
         parcel.writeString(themePackage);
-        parcel.writeString(overlayVersion);
+        parcel.writeInt(overlayVersion);
+        parcel.writeString(themeVersion);
         parcel.writeString(tag);
         parcel.writeString(overlayPackage);
     }
@@ -86,7 +88,8 @@ public class Overlay implements Parcelable, Comparable<Overlay> {
         isOverlayEnabled = in.readInt() == 1;
         overlayImage = in.readParcelable(Bitmap.class.getClassLoader());
         themePackage = in.readString();
-        overlayVersion = in.readString();
+        overlayVersion = in.readInt();
+        themeVersion = in.readString();
         tag = in.readString();
         overlayPackage = in.readString();
     }
